@@ -1,3 +1,5 @@
+
+//Function that makes a task 
 function taskFactory(id, nameTask, createAt){
 	return {
 	id:id,
@@ -53,6 +55,7 @@ var removeTask = (id)=>{
 	console.log(list_task);
 };
 
+//
 var addSubtask = (nameSubtask, id_task)=>{
 	let task = getTask(id_task);
 	let id = task.subtask.length + 1;
