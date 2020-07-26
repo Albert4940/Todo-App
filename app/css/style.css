@@ -1,0 +1,52 @@
+      #app{
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        background-color: #2b2d42;
+        width: 695px;
+        max-width: 695px;
+        height: 525px;
+        /*text-align: center;*/
+      }
+      #app>h1{
+        text-align: center;
+        color: white;
+      }
+
+     #app form{
+        display: flex;     
+        width: 50%;   
+        margin: 10px;
+        margin-left: 5%;
+      }
+
+     #app input[type=text]{
+        margin-right: 5px;
+      }
+
+      ul{
+        list-style: none;
+      }
+
+      #list>li{
+        width: 100%;
+       background-color: rgba(255,255,255,0.8);
+       border-radius: 3px;
+       /*height: 30px;*/
+       padding:10px;
+       padding-left: 30px;
+       margin-bottom: 5px;
+      }
+      #list li>.name{
+        font-size: 16px;
+      }
+      #list a{
+        float: right;
+        color: red;
+      }
+       #list li > span{
+        font-size: 13px;
+       }
+      .task-done{
+        text-decoration:line-through;
+      }

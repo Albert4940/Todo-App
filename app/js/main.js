@@ -1,0 +1,4 @@
+(function($){
+
+	homeContent();
+})(jQuery)
