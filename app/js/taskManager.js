@@ -15,11 +15,13 @@ function taskFactory(id, nameTask, createAt){
 	};
 }
 
-var subtask = {
-	id:0,
-	name:'',
+function subtaskFactory(id,nameSubtask){
+	return {
+	id:id,
+	name:nameSubtask,
 	done:false
-};
+	};
+}
 
 var list_task = [];
 
@@ -45,23 +47,22 @@ var getTask = (id)=>{
 
 var removeTask = (id)=>{
 	var task_del = getTask(id);
-	console.log(list_task);
 	if(task_del != null){
 		list_task = list_task.filter(function(task){
 			return task_del.id != task.id;
 		});
 	}
-
-	console.log(list_task);
 };
 
 //
-var addSubtask = (nameSubtask, id_task)=>{
-	let task = getTask(id_task);
-	let id = task.subtask.length + 1;
-	subtask.id = id;
-	subtask.name = nameSubtask;
-	task.subtask.push(subtask);
-
+var addSubtask = (id_task, nameSubtask)=>{
+	var task = getTask(id_task);
+	var subtask = null;
+	if(task != null){
+		let id = task.subtask.length + 1;
+		subtask = subtaskFactory(id,nameSubtask);
+		task.subtask.push(subtask);
+		task.numberSubtask = task.subtask.length;
+	}
 	return subtask;
 };
