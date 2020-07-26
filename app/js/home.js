@@ -36,10 +36,6 @@
 		liTaskFactory(name,task);
 		$('#taskName').val('');
 	});
-	$('#formSubTask').on('submit', function(e){
-		e.preventDefault();
-		alert('ok');
-	});
 
 	//Delete a task
 	$('#list').on('click', 'a', function(e){
@@ -47,26 +43,8 @@
 		var $this = $(this);
 		$this.parent().remove();
 	});
-	
-	$('#list').on('change', 'input', function(){
-		var $this = $(this);
-		//alert('ok');
-		$this.parent().toggleClass('task-done');
-	});
 
-	//
-	function htmlContent(task){
-		$('h1').text(task.name);
-		$('h1').attr('id',task.id);
-		$('form').attr('id','formSubtask');
-		$('ul').html('');
-		$('ul').attr('id','subtaskList');
-		//alert(task.id);
-		//for(let i = 0; i < task.subtask.length; i++){
-			//$('#subtaskList').append('<li');
-		//}
-	}
-
+	// To display a list of subtask from task 
 	$('#list').on('click','li', function(e){
 		e.preventDefault();
 		//$('#app').load('http://localhost/jquery/todo/html/task.html #task');

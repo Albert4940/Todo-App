@@ -1,4 +1,4 @@
-(function($){
+//(function($){
 	//
 	/*function htmlContent(task){
 		$('#title').text(task.name);
@@ -15,6 +15,16 @@
 		alert(id_task);
 	});
 
+	$('#formSubTask').on('submit', function(e){
+		e.preventDefault();
+		alert('ok');
+	});
+
+	$('#list').on('change', 'input', function(){
+		var $this = $(this);
+		//alert('ok');
+		$this.parent().toggleClass('task-done');
+	});
 	/*$('#list').on('click','li', function(e){
 		e.preventDefault();
 		$('#app').load('http://localhost/jquery/todo/html/task.html #task');
@@ -25,4 +35,4 @@
 		//alert(task.name);
 		//htmlContent(task);
 	});*/
-})(jQuery)
+//})(jQuery)
