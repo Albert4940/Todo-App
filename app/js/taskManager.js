@@ -1,15 +1,17 @@
-const task = {
-	id:0,
+function taskFactory(id, nameTask, createAt){
+	return {
+	id:id,
 	id_user:0,
-	name:'',
+	name:nameTask,
 	subtask:[],
 	numberSubtask:0,
 	percentComplete:0,
 	complete:false,
 	edit:false,
-	createAt:'',
+	createAt:createAt,
 	updateAt:''
-};
+	};
+}
 
 var subtask = {
 	id:0,
@@ -20,15 +22,13 @@ var subtask = {
 var list_task = [];
 
 var addTask = (nameTask)=>{
+	
 	let idTask = list_task.length + 1;
-	task.id = idTask;
-	task.name = nameTask;
-	task.createAt = new Date();
+	var task = taskFactory(idTask,nameTask,new Date())
 	list_task.push(task);
 	return task;
+
 };
-
-
 
 var getTask = (id)=>{
 	var task = null;
@@ -41,11 +41,23 @@ var getTask = (id)=>{
 	return task;
 };
 
-var addSubtask = (nameTask, id_task)=>{
+var removeTask = (id)=>{
+	var task_del = getTask(id);
+	console.log(list_task);
+	if(task_del != null){
+		list_task = list_task.filter(function(task){
+			return task_del.id != task.id;
+		});
+	}
+
+	console.log(list_task);
+};
+
+var addSubtask = (nameSubtask, id_task)=>{
 	let task = getTask(id_task);
 	let id = task.subtask.length + 1;
 	subtask.id = id;
-	subtask.name = nameTask;
+	subtask.name = nameSubtask;
 	task.subtask.push(subtask);
 
 	return subtask;

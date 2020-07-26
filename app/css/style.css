@@ -28,7 +28,7 @@
         list-style: none;
       }
 
-      #list>li{
+      .list>li{
         width: 100%;
        background-color: rgba(255,255,255,0.8);
        border-radius: 3px;
@@ -37,14 +37,14 @@
        padding-left: 30px;
        margin-bottom: 5px;
       }
-      #list li>.name{
+      .list li>.name{
         font-size: 16px;
       }
-      #list a{
+      .list a{
         float: right;
         color: red;
       }
-       #list li > span{
+       .list li > span{
         font-size: 13px;
        }
       .task-done{
