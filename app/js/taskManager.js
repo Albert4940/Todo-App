@@ -7,6 +7,7 @@ function taskFactory(id, nameTask, createAt){
 	name:nameTask,
 	subtask:[],
 	numberSubtask:0,
+	numberSubtaskRealize:0,
 	percentComplete:0,
 	complete:false,
 	edit:false,
@@ -36,12 +37,17 @@ var addTask = (nameTask)=>{
 
 var getTask = (id)=>{
 	var task = null;
-	for(let i = 0; i < list_task.length; i++){
+	/*for(let i = 0; i < list_task.length; i++){
 		if(id == list_task[i].id){
 			task = list_task[i];
 		}
-	}
+	}*/
 
+	$.each(list_task, function(index,task_result){
+		if(id == task_result.id){
+			task = task_result;
+		}
+	});
 	return task;
 };
 
@@ -66,3 +72,18 @@ var addSubtask = (id_task, nameSubtask)=>{
 	}
 	return subtask;
 };
+
+function getSubtask(id_task, id_subtask){
+	var task = getTask(id_task);
+	var subtask = null;
+
+	if(task != null){
+		$.each(task.subtask, function(index, subtask_result){
+			if(id_subtask == subtask_result.id){
+				subtask = subtask_result;
+			}
+		});
+	}
+
+	return subtask;
+}

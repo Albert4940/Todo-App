@@ -8,11 +8,12 @@
         height: 525px;
         /*text-align: center;*/
       }
-      #app>h1{
+      h1{
         text-align: center;
         color: white;
       }
 
+      
      #app form{
         display: flex;     
         width: 50%;   
@@ -49,4 +50,11 @@
        }
       .task-done{
         text-decoration:line-through;
+      }
+
+      #back{
+        float: left;
+        width: 50px;
+        border-radius: 10%;
+        /*margin-right: 135px;*/
       }

@@ -19,16 +19,25 @@
 	}
 
 	//For display list of task and hide a subtask form
-	function homeHtmlContent(task){
-		
+	function homeHtmlContent(list_task){
+		$('#back').hide();
+		$('h1').attr('id','title');
+		$('h1').text('TASK LIST');
+
 		$('#formTask').show();
 		$('#formSubtask').hide();
 
 		$('#taskList').show();
 		$('#subtaskList').hide();
-		$('ul').css('id','taskList');
 
-		liTaskFactory(task);
+		$('ul').css('id','taskList');
+		$('ul').html('');
+		//console.log(list_task);
+		if(list_task.length > 0){
+			$.each(list_task, function(index,task){
+				liTaskFactory(task);
+			});			
+		}
 	}
 
 	//add task at list
