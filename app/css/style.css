@@ -8,7 +8,7 @@
         height: 525px;
         /*text-align: center;*/
       }
-      h1{
+      h1, p{
         text-align: center;
         color: white;
       }

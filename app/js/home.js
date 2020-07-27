@@ -18,11 +18,22 @@
 		$('ul').append(liElt);
 	}
 
+	function displayNumberTaskComplet(list_task){
+		var numberTaskComplete = 0;
+		$.each(list_task, function(index,task){
+				if(task.complete){
+					numberTaskComplete ++;
+				}
+			});		
+		$('p').text(list_task.length + ' Task '+ numberTaskComplete + ' Complete');
+	}
 	//For display list of task and hide a subtask form
 	function homeHtmlContent(list_task){
 		$('#back').hide();
 		$('h1').attr('id','title');
 		$('h1').text('TASK LIST');
+
+		displayNumberTaskComplet(list_task);
 
 		$('#formTask').show();
 		$('#formSubtask').hide();
@@ -32,12 +43,13 @@
 
 		$('ul').css('id','taskList');
 		$('ul').html('');
-		//console.log(list_task);
 		if(list_task.length > 0){
 			$.each(list_task, function(index,task){
 				liTaskFactory(task);
 			});			
 		}
+
+		
 	}
 
 	//add task at list
@@ -46,18 +58,19 @@
 		let name = $('#taskName').val();
 		let task = addTask(name);
 		liTaskFactory(task);
+		displayNumberTaskComplet(list_task);
 		$('#taskName').val('');
 	});
 
 	//Delete a task
 	$('#taskList').on('click', 'a', function(e){
 		e.preventDefault();
-		var $this = $(this);
-		
-			var li_id = $this.parent()[0].id;
-			removeTask(li_id);
-			$this.parent().remove();
-			e.stopPropagation();
+		var $this = $(this);		
+		var li_id = $this.parent()[0].id;
+		removeTask(li_id);
+		displayNumberTaskComplet(list_task);
+		$this.parent().remove();
+		e.stopPropagation();
 		
 	});
 

@@ -24,6 +24,19 @@
 		$('ul').append(liElt);
 	}
 
+	function displayNumberSubtaskComplet(id_task){
+		var task = getTask(id_task);
+		var numberSubtaskComplete = 0;
+		if(task != null){
+		$.each(task.subtask, function(index,subtask){
+				if(subtask.done){
+					numberSubtaskComplete ++;
+				}
+			});		
+		}
+		
+		$('p').text(task.subtask.length + ' Subtask '+ numberSubtaskComplete + ' Complete');
+	}
 	//to display a subtask list from task
 	function subtaskHtmlContent(task){
 		$('ul').html('');
@@ -31,6 +44,8 @@
 		//$('ul').attr('id','subtaskList');
 		$('h1').text(task.name);
 		$('h1').attr('id',task.id);
+
+		displayNumberSubtaskComplet($('h1').attr('id'));
 
 		$('#formTask').hide();
 		$('#formSubtask').show();
@@ -44,6 +59,7 @@
 			});
 		}
 	}
+
 
 	function percentage_cal(id_task){
 		let task = getTask(id_task);
@@ -66,24 +82,30 @@
 				task.numberSubtaskRealize ++;
 			}
 		});
-		console.log(task);
 	}
 
+	// Add Subtask
 	$('#formSubtask').on('submit', function(e){
 		e.preventDefault();
 		let id_task = $('h1').attr('id');
 		let nameSubtask = $('#subtaskName').val();
 		let subtask = addSubtask(id_task,nameSubtask);
 		liSubtaskFactory(subtask);
+		displayNumberSubtaskComplet(id_task);
 		$('#subtaskName').val('');
 	});
 
+	//Delete a subtask
 	$('#subtaskList').on('click', 'a', function(e){
 		e.preventDefault();
 		var $this = $(this);
-			
-			alert('ok');
 		
+		var id_subtask = $this.parent()[0].id;
+		var id_task = $('h1').attr('id');
+		removeSubtask(id_task, id_subtask);
+		displayNumberSubtaskComplet(id_task);
+		$this.parent().remove();
+		e.stopPropagation();
 	});
 
 	$('#subtaskList').on('change', 'input', function(){
@@ -101,6 +123,7 @@
 	    }	    
 	    numberSubtaskRealizeCal(id_task);
 		percentage_cal(id_task);
+		displayNumberSubtaskComplet(id_task);
 	});
 	
 //})(jQuery)

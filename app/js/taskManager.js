@@ -16,13 +16,6 @@ function taskFactory(id, nameTask, createAt){
 	};
 }
 
-function subtaskFactory(id,nameSubtask){
-	return {
-	id:id,
-	name:nameSubtask,
-	done:false
-	};
-}
 
 var list_task = [];
 
@@ -60,7 +53,16 @@ var removeTask = (id)=>{
 	}
 };
 
-//
+//Subtask Manager
+
+function subtaskFactory(id,nameSubtask){
+	return {
+	id:id,
+	name:nameSubtask,
+	done:false
+	};
+}
+
 var addSubtask = (id_task, nameSubtask)=>{
 	var task = getTask(id_task);
 	var subtask = null;
@@ -86,4 +88,15 @@ function getSubtask(id_task, id_subtask){
 	}
 
 	return subtask;
+}
+
+function removeSubtask(id_task, id_subtask){
+	var task = getTask(id_task);
+	
+	if(task != null){
+		task.subtask = task.subtask.filter(function(subtask_result){
+			return id_subtask != subtask_result.id;
+		});
+		task.numberSubtask --;
+	}
 }
