@@ -27,6 +27,9 @@
 
       ul{
         list-style: none;
+        height: 335px;
+        overflow: auto;
+        padding-right: 15px;
       }
 
       .list>li{
@@ -37,6 +40,7 @@
        padding:10px;
        padding-left: 30px;
        margin-bottom: 5px;
+       /*margin-right: 5px;*/
       }
       .list li>.name{
         font-size: 16px;
