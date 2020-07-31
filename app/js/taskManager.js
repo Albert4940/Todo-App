@@ -30,12 +30,6 @@ var addTask = (nameTask)=>{
 
 var getTask = (id)=>{
 	var task = null;
-	/*for(let i = 0; i < list_task.length; i++){
-		if(id == list_task[i].id){
-			task = list_task[i];
-		}
-	}*/
-
 	$.each(list_task, function(index,task_result){
 		if(id == task_result.id){
 			task = task_result;
