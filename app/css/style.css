@@ -1,11 +1,26 @@
+      body{
+        background-color: #202c39;
+      }
+      nav{
+        background-color: #283845;
+      }
+
+      .dropdown{
+        margin-left: 80%;
+      }
+      .navbar-brand{
+        color: white;
+      }
+
       #app{
         display: flex;
         flex-direction: column;
         margin: auto;
-        background-color: #2b2d42;
+        background-color: #283845;
         width: 695px;
         max-width: 695px;
         height: 525px;
+        border-radius: 5px;
         /*text-align: center;*/
       }
       h1, p{
@@ -25,7 +40,7 @@
         margin-right: 5px;
       }
 
-      ul{
+      #taskList, #subtaskList{
         list-style: none;
         height: 335px;
         overflow: auto;

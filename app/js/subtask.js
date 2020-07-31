@@ -39,7 +39,7 @@
 	}
 	//to display a subtask list from task
 	function subtaskHtmlContent(task){
-		$('ul').html('');
+		$('#subtaskList').html('');
 		$('#back').show();
 		//$('ul').attr('id','subtaskList');
 		$('h1').text(task.name);

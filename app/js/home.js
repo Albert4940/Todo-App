@@ -41,8 +41,8 @@
 		$('#taskList').show();
 		$('#subtaskList').hide();
 
-		$('ul').css('id','taskList');
-		$('ul').html('');
+		//$('ul').css('id','taskList');
+		$('#taskList').html('');
 		if(list_task.length > 0){
 			$.each(list_task, function(index,task){
 				liTaskFactory(task);
