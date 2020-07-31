@@ -16,16 +16,47 @@ function taskFactory(id, nameTask, createAt){
 	};
 }
 
+function userFactory(id, fullName, userName, pass, createAt){
+	return{
+		id:id,
+		fullName:fullName,
+		userName:userName,
+		pass:pass,
+		createAt:createAt,
+		updateAt:''
+	};
+}
 
+var list_user = [];
 var list_task = [];
 
+// User  Manager
+var addUser = (fullName, userName, pass)=>{
+	let id = list_user.length + 1;
+	var user = userFactory(id,fullName,userName, new Date());
+	list_user.push(user);
+	return user;
+};
+
+var getUser = (userName, pass)=>{
+
+	$.each(list_user, function(index, user){
+		if(user.userName == userName && user.pass == pass){
+			return user;
+		}
+	});
+
+
+	return "";
+}
+
+// Task Manager
 var addTask = (nameTask)=>{
 	
 	let idTask = list_task.length + 1;
-	var task = taskFactory(idTask,nameTask,new Date())
+	var task = taskFactory(idTask,nameTask,new Date());
 	list_task.push(task);
 	return task;
-
 };
 
 var getTask = (id)=>{
