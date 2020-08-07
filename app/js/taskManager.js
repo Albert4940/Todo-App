@@ -16,12 +16,13 @@ function taskFactory(id, nameTask, createAt){
 	};
 }
 
-function userFactory(id, fullName, userName, pass, createAt){
+function userFactory(id, fullName, userName, pass, mail, createAt){
 	return{
 		id:id,
 		fullName:fullName,
 		userName:userName,
 		pass:pass,
+		mail:mail,
 		createAt:createAt,
 		updateAt:''
 	};
@@ -31,23 +32,23 @@ var list_user = [];
 var list_task = [];
 
 // User  Manager
-var addUser = (fullName, userName, pass)=>{
+var addUser = (fullName, userName , pass, mail)=>{
 	let id = list_user.length + 1;
-	var user = userFactory(id,fullName,userName, new Date());
+	var user = userFactory(id,fullName,userName, pass, mail, new Date());
 	list_user.push(user);
 	return user;
 };
 
 var getUser = (userName, pass)=>{
-
+	var $user = "";
 	$.each(list_user, function(index, user){
 		if(user.userName == userName && user.pass == pass){
-			return user;
+		 $user = user;
 		}
 	});
 
 
-	return "";
+	return $user;
 }
 
 // Task Manager

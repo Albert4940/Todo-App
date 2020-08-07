@@ -1,17 +1,24 @@
 body{
-	background-image: url('../img/task4.JPG');
-	background-repeat: no-repeat;
-	background-size: cover;
+	/*background-image: url('../img/task4.JPG');*/
+	/*background-repeat: no-repeat;*/
+	/*background-size: cover;*/
+	background-color: rgb(49,54,57);
 }
 
-h1,p{
+h1,p,.tooltip{
 	text-align: center;
 }
+
+#error, .tooltip{
+	color:red;
+	display: none;
+}
+
 #app-login{
 	margin: auto;
     background-color: white;
     width: 400px;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     padding: 10px;
 }
 
@@ -31,7 +38,7 @@ input{
 }
 
 input[type=submit]{
-	background-color: #283845;
+	background-color: rgb(70,74,77);
 	color: white;
 }
 

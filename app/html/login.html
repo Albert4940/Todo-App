@@ -8,16 +8,22 @@
 	<br/><br/><br/><br/>
 	<div id="app-login">
 		<h1>SING IN</h1>
+		<p id="error">You have not filled in the form fields correctly!</p>
 		<form id="signin-form">
-			<input type="text" name="username" placeholder="username"  required />
-			<input type="password" name="pass"  required placeholder="password" /><br/>
-			<input type="submit" name="signin" value="SIGN IN" id="signup"/>
+			<input type="text" name="username" placeholder="username"  class="field"   />
+			<input type="password" name="pass"   placeholder="password" class="field"/><br/>
+			<input type="submit" name="signin" value="SIGN IN" class="field" id="signup"  />
 		</form>
 
 		<form id="signup-form" style="display: none">
-			<input type="text" name="fullName" placeholder="Full Name"  required />
-			<input type="text" name="username" placeholder="username"  required />
-			<input type="password" name="pass"  required placeholder="password" /><br/>
+			<input type="text" name="fullName" placeholder="Full Name" class="field" id="fullname"  />
+			<input type="text" name="username" placeholder="username" class="field" id="username"   />
+			<input type="password" name="pass"   placeholder="password" id="pass"  class="field" />
+			<span class="tooltip" id="pass-info">Password must not be less than 4 characters</span>
+			<input type="password" name="confirm"  placeholder="confirm password" id="confirm"class="field" />
+			<span class="tooltip" id="confirm-info">The confirmation password must be the same as the original one</span>
+			<input type="text" name="mail"   placeholder="mail" class="field" id="mail" />
+			<span class="tooltip" id="mail-info">Incorrect Mail !</span><br/>
 			<input type="submit" name="signup" value="SING UP"/>
 		</form>
 		<p id="signup-link">Or <a href="#">create an account<a/></p>
