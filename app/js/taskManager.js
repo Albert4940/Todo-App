@@ -51,6 +51,17 @@ var getUser = (userName, pass)=>{
 	return $user;
 }
 
+//Check if a user name already exist
+var exist = (userName) =>{
+	var found = false;
+	$.each(list_user, function(index, user){
+		if(user.userName == userName){
+			found = true;
+		}
+	});
+
+	return found ;
+};
 // Task Manager
 var addTask = (nameTask)=>{
 	

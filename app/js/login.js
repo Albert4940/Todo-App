@@ -141,16 +141,21 @@
 
 	$('#signup-form').on('submit', function(e){
 		e.preventDefault();
-		//check2();
 		if(!check()){
 			if(!check2()){
 				let fullName = $('#signup-form input:eq(0)').val();
 				let username = $('#signup-form input:eq(1)').val();
 				let pass = $('#signup-form input:eq(2)').val();
 				let mail = $('#signup-form input:eq(4)').val();
-				user = addUser(fullName,username,pass, mail);
-				setCookie("username", user.userName, 365);
-				alert(user.mail);
+				if(!exist(username)){
+					$error.hide();
+					user = addUser(fullName,username,pass, mail);
+					setCookie("username", user.userName, 365);
+				}else{
+					$error.text("User Name already exist !");
+					$error.show();
+				}
+				
 			}
 		}
 	});
