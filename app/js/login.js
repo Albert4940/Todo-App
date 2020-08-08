@@ -125,10 +125,15 @@
 		let pass = $('#signin-form input:eq(1)');
 		if(!verify(username) && !verify(pass)){	
 			$error.hide();		
-			user = getUser(username.val(),pass.val());
-			location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
-			if(user != ""){
-				setCookie('username',user.userName);
+			//user = getUser(username.val(),pass.val());
+			let userN = "", userP = "";
+			 userN = getCookie('username');
+			 userP = getCookie('pass');
+			if(userN != "" || userP != ""){
+				$error.hide();
+				setCookie('username',user.userName,365);
+				setCookie('pass',user.pass,365);
+				location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 			}else{
 				$error.text("Your account or password is incorrect!");
 				$error.show();
@@ -152,6 +157,7 @@
 					$error.hide();
 					user = addUser(fullName,username,pass, mail);
 					setCookie("username", user.userName, 365);
+				    setCookie('pass',user.pass,365);
 					location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 				}else{
 					$error.text("User Name already exist !");

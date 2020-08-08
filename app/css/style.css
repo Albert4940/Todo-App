@@ -20,7 +20,7 @@
         width: 695px;
         max-width: 695px;
         height: 525px;
-        border-radius: 5px;
+        border-radius: 0px;
         /*text-align: center;*/
       }
       h1, p{
@@ -76,4 +76,8 @@
         width: 50px;
         border-radius: 10%;
         /*margin-right: 135px;*/
+      }
+
+      .btn, .form-control, .dropdown-menu{
+        border-radius: 0px;
       }
