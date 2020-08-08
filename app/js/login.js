@@ -126,6 +126,7 @@
 		if(!verify(username) && !verify(pass)){	
 			$error.hide();		
 			user = getUser(username.val(),pass.val());
+			location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 			if(user != ""){
 				setCookie('username',user.userName);
 			}else{
@@ -151,6 +152,7 @@
 					$error.hide();
 					user = addUser(fullName,username,pass, mail);
 					setCookie("username", user.userName, 365);
+					location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 				}else{
 					$error.text("User Name already exist !");
 					$error.show();
