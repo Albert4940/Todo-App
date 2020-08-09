@@ -11,7 +11,7 @@
 		liElt += '</span>';
 		liElt += '<a href="#">'+del+'</a><br/>';
 		liElt += '<span>';
-		liElt += task.numberSubtask +' Task';
+		liElt += task.numberSubtask +' Task(s)';
 		liElt += '&nbsp&nbsp&nbsp' + task.percentComplete +'% Complete';
 		liElt += '</span>';
 		liElt += '</li>';
@@ -32,7 +32,6 @@
 		$('#back').hide();
 		$('h1').attr('id','title');
 		$('h1').text('TASK LIST');
-
 		displayNumberTaskComplet(list_task);
 
 		$('#formTask').show();

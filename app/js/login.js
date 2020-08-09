@@ -1,7 +1,7 @@
 (function($){
 	var user = '';
 	// Some functions in dorder to control registrer form
-
+	alert(getCookie('username'));
 	 var $field = $('.field'),
         $username = $('#username'),
         $pass = $('#pass'),
@@ -129,10 +129,11 @@
 			let userN = "", userP = "";
 			 userN = getCookie('username');
 			 userP = getCookie('pass');
-			if(userN != "" || userP != ""){
+			 
+			if(userN != undefined || userP != undefined){
 				$error.hide();
-				setCookie('username',user.userName,365);
-				setCookie('pass',user.pass,365);
+				//setCookie('username',user.userName,365);
+				//setCookie('pass',user.pass,365);
 				location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 			}else{
 				$error.text("Your account or password is incorrect!");
