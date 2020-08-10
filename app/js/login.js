@@ -1,7 +1,7 @@
 (function($){
 	var user = '';
 	// Some functions in dorder to control registrer form
-	alert(getCookie('username'));
+	
 	 var $field = $('.field'),
         $username = $('#username'),
         $pass = $('#pass'),
