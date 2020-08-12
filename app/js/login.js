@@ -1,6 +1,7 @@
 (function($){
 	var user = '';
 	// Some functions in dorder to control registrer form
+	
 	console.log(localStorage.getItem('username'));
 	function login(){
 		let username = $('#signin-form input:eq(0)');
@@ -23,7 +24,7 @@
 						
 						if(sessionStorage.getItem("pass") == pass.val()){
 							//location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
-							sessionStorage.setItem("username",username)
+							sessionStorage.setItem("username",username.val())
 							location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
 						}else{
 				$error.text("Your account or password is incorrect!");
