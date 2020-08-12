@@ -1,7 +1,56 @@
 (function($){
 	var user = '';
 	// Some functions in dorder to control registrer form
-	
+	console.log(localStorage.getItem('username'));
+	function login(){
+		let username = $('#signin-form input:eq(0)');
+		let pass = $('#signin-form input:eq(1)');
+		if(!verify(username) && !verify(pass)){	
+			$error.hide();		
+			getUser(username.val(),pass.val());
+			//localStorage.removeItem("username");
+			//localStorage.removeItem("pass");
+			 /*var u = null;
+			 while(u == null){
+			 	u = sessionStorage.getItem("lastname");
+			 }*/
+			//console.log(u);
+			count ++;
+			console.log(count);
+			if(count == 5 ){
+				count = 0;
+					if(sessionStorage.getItem("username") != null){
+						
+						if(sessionStorage.getItem("pass") == pass.val()){
+							location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
+						}else{
+				$error.text("Your account or password is incorrect!");
+				$error.show();
+			}
+					}
+			 clearInterval(myVar);
+	       }
+			console.log(sessionStorage.getItem("username"));
+			 
+			/*if(localStorage.getItem("username")!= null){
+				$error.hide();
+				//setCookie('username',user.userName,365);
+				//setCookie('pass',user.pass,365);
+				location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
+			}else{
+				$error.text("Your account or password is incorrect!");
+				$error.show();
+			}*/
+		}else{
+			$error.text("You have not filled in the form fields correctly!");
+				$error.show();
+		}
+
+	}
+
+	var myVar ;
+	var count = 0;
+
 	 var $field = $('.field'),
         $username = $('#username'),
         $pass = $('#pass'),
@@ -121,29 +170,8 @@
 
 	$('#signin-form').on('submit', function(e){
 		e.preventDefault();
-		let username = $('#signin-form input:eq(0)');
-		let pass = $('#signin-form input:eq(1)');
-		if(!verify(username) && !verify(pass)){	
-			$error.hide();		
-			//user = getUser(username.val(),pass.val());
-			let userN = "", userP = "";
-			 userN = getCookie('username');
-			 userP = getCookie('pass');
-			 
-			if(userN != undefined || userP != undefined){
-				$error.hide();
-				//setCookie('username',user.userName,365);
-				//setCookie('pass',user.pass,365);
-				location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
-			}else{
-				$error.text("Your account or password is incorrect!");
-				$error.show();
-			}
-		}else{
-			$error.text("You have not filled in the form fields correctly!");
-				$error.show();
-		}
-
+		//login();
+		myVar = setInterval(login, 1000);
 	});
 
 	$('#signup-form').on('submit', function(e){
@@ -154,16 +182,21 @@
 				let username = $('#signup-form input:eq(1)').val();
 				let pass = $('#signup-form input:eq(2)').val();
 				let mail = $('#signup-form input:eq(4)').val();
-				if(!exist(username)){
+				
+				exist(username).then(function(response){
+					let data = response.val();
+					console.log(data);
+					if(data == null){
 					$error.hide();
 					user = addUser(fullName,username,pass, mail);
-					setCookie("username", user.userName, 365);
-				    setCookie('pass',user.pass,365);
-					location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
-				}else{
-					$error.text("User Name already exist !");
-					$error.show();
-				}
+
+					sessionStorage.setItem('username',user.userName);
+					}else{
+						$error.text("User Name already exist !");
+						$error.show();
+					}
+				});
+				
 				
 			}
 		}

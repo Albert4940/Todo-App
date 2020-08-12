@@ -7,7 +7,7 @@
 <body>
 	<br/><br/><br/><br/>
 	<div id="app-login">
-		<h1>SING IN</h1>
+		<h1>SIGN IN</h1>
 		<p id="error">You have not filled in the form fields correctly!</p>
 		<form id="signin-form">
 			<input type="text" name="username" placeholder="username"  class="field"   />
@@ -31,7 +31,31 @@
 	</div>
 
 <script src="../js/jquery-3.5.1.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!-- <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-app.js"></script> -->
+<!-- <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-auth.js"></script> -->
+<!-- <script src="https://www.gstatic.com/firebasejs/7.17.2/firebase-database.js"></script> -->
+<!-- TODO: Add SDKs for Firebase products that you want to use 
+https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+<script type="text/javascript">
+	// Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAASxMoTD1tIDIL9U0ZdKIFkCxiqnGN5Cc",
+    authDomain: "todo-app-e9d78.firebaseapp.com",
+    databaseURL: "https://todo-app-e9d78.firebaseio.com",
+    projectId: "todo-app-e9d78",
+    storageBucket: "todo-app-e9d78.appspot.com",
+    messagingSenderId: "922274090177",
+    appId: "1:922274090177:web:c468c6cfb1ed537c31d840"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+<script type="text/javascript" src="../js/firebaseConfig.js"></script>
 <script type="text/javascript" src="../js/manager/cookieManager.js"></script>
 <script type="text/javascript" src="../js/manager/userManager.js"></script>
 <script type="text/javascript" src="../js/login.js"></script>

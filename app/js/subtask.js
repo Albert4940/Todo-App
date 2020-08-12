@@ -104,6 +104,7 @@
 		var id_task = $('h1').attr('id');
 		removeSubtask(id_task, id_subtask);
 		displayNumberSubtaskComplet(id_task);
+		percentage_cal(id_task);
 		$this.parent().remove();
 		e.stopPropagation();
 	});
