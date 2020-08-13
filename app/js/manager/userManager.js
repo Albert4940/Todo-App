@@ -12,7 +12,7 @@ function userFactory( fullName, userName, pass, mail, createAt){
 	};
 }
 
-var list_user = [];
+//var list_user = [];
 
 // User  Manager
 var addUser = (fullName, userName , pass, mail)=>{
@@ -28,8 +28,8 @@ var addUser = (fullName, userName , pass, mail)=>{
 		//var userRef = database.ref('users/'+user.userName);
 
  		userRef.child(user.userName).set(user).then(function(){
-       	//location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
-       	location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
+       	location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
+       	//location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
        }).catch(function(error){
        	user = "";
        	console.log("error : " + error);
