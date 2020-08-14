@@ -131,12 +131,14 @@ function getAllSubtasks(id_task){
 }
 
 function removeSubtask(id_task, id_subtask){
-	var task = getTask(id_task);
+	//var task = getTask(id_task);
 	
-	if(task != null){
+	/*if(task != null){
 		task.subtask = task.subtask.filter(function(subtask_result){
 			return id_subtask != subtask_result.id;
 		});
 		task.numberSubtask --;
-	}
+	}*/
+
+	return firebase.database().ref('subtasks/'+id_subtask).remove();
 }

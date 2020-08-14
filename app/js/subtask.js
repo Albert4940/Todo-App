@@ -105,11 +105,13 @@
 		
 		var id_subtask = $this.parent()[0].id;
 		var id_task = $('h1').attr('id');
-		removeSubtask(id_task, id_subtask);
-		displayNumberSubtaskComplet(id_task);
-		percentage_cal(id_task);
-		$this.parent().remove();
-		e.stopPropagation();
+		removeSubtask(id_task, id_subtask).then(function(){
+			$this.parent().remove();
+			e.stopPropagation();
+		});
+		//displayNumberSubtaskComplet(id_task);
+		//percentage_cal(id_task);
+		
 	});
 
 	$('#subtaskList').on('change', 'input', function(){
