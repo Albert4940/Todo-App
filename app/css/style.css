@@ -62,11 +62,10 @@
       }
       .list a{
         float: right;
-        color: red;
+        margin: 7px;
+       
       }
-       .list li > span{
-        font-size: 13px;
-       }
+       
       .task-done{
         text-decoration:line-through;
       }
@@ -80,4 +79,9 @@
 
       .btn, .form-control, .dropdown-menu{
         border-radius: 0px;
+      }
+
+      #change_input{
+        width: 100%;
+
       }

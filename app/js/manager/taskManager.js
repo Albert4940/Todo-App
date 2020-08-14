@@ -57,6 +57,10 @@ var getAllTasks = (username)=>{
 	});
 }
 
+var updateTask = (id, newName) => {
+
+	return taskRef.child(id).update({name:newName,updateAt:new Date()}).then(function(){});
+}
 var removeTask = (id)=>{	
     //Remove all task's subtask
     
