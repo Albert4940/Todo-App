@@ -25,8 +25,8 @@
 						if(sessionStorage.getItem("pass") == pass.val()){
 							
 							sessionStorage.setItem("username",username.val())
-							//location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
-							location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
+							location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
+							//location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 						}else{
 				$error.text("Your account or password is incorrect!");
 				$error.show();

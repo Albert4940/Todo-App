@@ -57,13 +57,12 @@ var getAllTasks = (username)=>{
 	});
 }
 
-var removeTask = (id)=>{
-	var task_del = getTask(id);
-	if(task_del != null){
-		list_task = list_task.filter(function(task){
-			return task_del.id != task.id;
-		});
-	}
+var removeTask = (id)=>{	
+    //Remove all task's subtask
+    
+    	return removeSubtaskByIdTask(id).then(function(){
+    		return taskRef.child(id).remove().then(function(){});
+    	});
 };
 
 //Subtask Manager
@@ -77,15 +76,6 @@ function subtaskFactory(id, id_task, nameSubtask){
 	};
 }
 
-var addTask = (nameTask, username)=>{
-	
-	var id_task = firebase.database().ref().child('tasks/').push().key;
-	var task = taskFactory(id_task,nameTask,username, new Date());
-	
-	return taskRef.child(id_task).set(task).then(function(){
-		return task;
-	});
-};
 var addSubtask = (id_task, nameSubtask)=>{
 	//var task = getTask(id_task);
 	var subtask = null;
@@ -103,7 +93,7 @@ var id_subtask = firebase.database().ref().child('subtasks/').push().key;
 };
 
 function getSubtask(id_task, id_subtask){
-	var task = getTask(id_task);
+	/*var task = getTask(id_task);
 	var subtask = null;
 
 	if(task != null){
@@ -114,7 +104,14 @@ function getSubtask(id_task, id_subtask){
 		});
 	}
 
-	return subtask;
+	return subtask;*/
+	return subtaskRef.child(id_subtask).once('value').then(function(data){
+		var subtask = '';
+		if(data.val().id_task == id_task){
+			subtask = response.val();
+		}
+		return subtask;
+	});
 }
 
 function getAllSubtasks(id_task){
@@ -131,14 +128,18 @@ function getAllSubtasks(id_task){
 }
 
 function removeSubtask(id_task, id_subtask){
-	//var task = getTask(id_task);
-	
-	/*if(task != null){
-		task.subtask = task.subtask.filter(function(subtask_result){
-			return id_subtask != subtask_result.id;
-		});
-		task.numberSubtask --;
-	}*/
-
 	return firebase.database().ref('subtasks/'+id_subtask).remove();
+}
+
+function removeSubtaskByIdTask(id_task){
+	return subtaskRef.once('value').then(function(response){
+		//var list_subtask = [];
+		response.forEach(function(data){
+			var subtask = data.val();
+			if(subtask.id_task == id_task){
+				subtaskRef.child(subtask.id).remove().then(function(){});
+			}
+		});
+		//return list_subtask;
+	});	
 }

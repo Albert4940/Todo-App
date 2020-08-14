@@ -69,11 +69,16 @@
 		e.preventDefault();
 		var $this = $(this);		
 		var li_id = $this.parent()[0].id;
-		removeTask(li_id);
-		displayNumberTaskComplet(list_task);
-		$this.parent().remove();
-		e.stopPropagation();
+		//getAllSubtasks(li_id).then(function(response){
+			removeTask(li_id).then(function(){
+				$this.parent().remove();
+			});
+			//displayNumberTaskComplet(list_task);
+			
+			
+		//});
 		
+		e.stopPropagation();
 	});
 
 	// To display a list of subtask from task and show form subtask
