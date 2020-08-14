@@ -1,5 +1,6 @@
 //(function($){
 	var id_task = '';
+	var task_name = '';
 	//function for create a li element and add it to ul element list of task
 	function liTaskFactory(task){		
 		let del = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">';
@@ -76,6 +77,7 @@ update += '</svg>';
 		e.preventDefault();
 		var $this = $(this);		
 		var li_id = $this.parent()[0].id;
+		task_name = $this.attr('class');
 		id_task=li_id;
 		$('#change_input').val($('#'+li_id+'1').text());
 		$('#exampleModal').modal('show');
@@ -89,6 +91,7 @@ update += '</svg>';
 		
 		updateTask(id_task,newName).then(function(){
 			$('#'+id_task+'1').text(newName);
+			$('#'+id_task).attr('class',newName);
 			$('#exampleModal').modal('hide');
 		});
 	})
