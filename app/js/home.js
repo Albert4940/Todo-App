@@ -72,7 +72,7 @@ update += '</svg>';
 	});
 
 	//Update a task
-	//Show modl with data
+	//Show modal with data
 	$('#taskList').on('click', '.update',function(e){
 		e.preventDefault();
 		var $this = $(this);		
@@ -89,10 +89,15 @@ update += '</svg>';
 		e.preventDefault();
 		let newName = $('#change_input').val();
 		
-		updateTask(id_task,newName).then(function(){
+		getTask(id_task).then(function(response){
+			var newTask = response;
+			newTask.name = newName;
+			newTask.updateAt = new Date();
+			updateTask(newTask).then(function(){
 			$('#'+id_task+'1').text(newName);
 			$('#'+id_task).attr('class',newName);
 			$('#exampleModal').modal('hide');
+		  });
 		});
 	})
 

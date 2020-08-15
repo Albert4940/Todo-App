@@ -46,10 +46,7 @@ var getAllTasks = (username)=>{
 		var list_task = [];
 		response.forEach(function(res) {
 			var task = res.val();
-			//var childTask = taskFactory(task.id, task.nameTask, task.userName, task.createAt);
-			//console.log(username);
 			if(username == task.userName){
-				//console.log(task);
 				list_task.push(task);
 			}
 	    });
@@ -57,10 +54,11 @@ var getAllTasks = (username)=>{
 	});
 }
 
-var updateTask = (id, newName) => {
+var updateTask = (newTask) => {
 
-	return taskRef.child(id).update({name:newName,updateAt:new Date()}).then(function(){});
+	return taskRef.child(newTask.id).set(newTask).then(function(){});
 }
+
 var removeTask = (id)=>{	
     //Remove all task's subtask
     
@@ -81,34 +79,24 @@ function subtaskFactory(id, id_task, nameSubtask){
 }
 
 var addSubtask = (id_task, nameSubtask)=>{
-	//var task = getTask(id_task);
+	
 	var subtask = null;
-var id_subtask = firebase.database().ref().child('subtasks/').push().key;
+	var id_subtask = firebase.database().ref().child('subtasks/').push().key;
 		subtask = subtaskFactory(id_subtask, id_task, nameSubtask);
 	if(id_task != null){
-		console.log(subtask.name)
 		return subtaskRef.child(id_subtask).set(subtask).then(function(){
+			getAllSubtasks(id_task).then(function(data){
+				var number = data.length;
+				taskRef.child(id_task).update({numberSubtask:number}).then(function(){});
+			})
 			return subtask;
-	});
-		
-		//task.numberSubtask = task.subtask.length;
+		});
 	}
 	
 };
 
 function getSubtask(id_task, id_subtask){
-	/*var task = getTask(id_task);
-	var subtask = null;
-
-	if(task != null){
-		$.each(task.subtask, function(index, subtask_result){
-			if(id_subtask == subtask_result.id){
-				subtask = subtask_result;
-			}
-		});
-	}
-
-	return subtask;*/
+	
 	return subtaskRef.child(id_subtask).once('value').then(function(data){
 		var subtask = '';
 		if(data.val().id_task == id_task){
@@ -129,6 +117,10 @@ function getAllSubtasks(id_task){
 		});
 		return list_subtask;
 	});	
+}
+
+function updateSubtask(newSubtask){
+	return subtaskRef.child(newSubtask.id).set(newSubtask).then(function(){});
 }
 
 function removeSubtask(id_task, id_subtask){

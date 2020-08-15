@@ -37,6 +37,7 @@
 		
 		$('p').text(task.length + ' Subtask '+ numberSubtaskComplete + ' Complete');
 	}
+
 	//to display a subtask list from task
 	function subtaskHtmlContent(id_task,taskName, listSubtask){
 		$('#subtaskList').html('');
@@ -74,7 +75,7 @@
 		}
 	}
 
-	function numberSubtaskRealizeCal(id_task){
+	function numberSubtaskRealizedCal(id_task){
 		var task = getTask(id_task);
 		task.numberSubtaskRealize = 0;
 		$.each(task.subtask, function(index,task_result){
@@ -93,8 +94,12 @@
 		addSubtask(id_task,nameSubtask).then(function(data){
 			liSubtaskFactory(data);
 		});
+
+		getAllSubtasks(id_task).then(function(data){
+
+			displayNumberSubtaskComplet(data);
+		});
 		
-		displayNumberSubtaskComplet(listSubtask);
 		$('#subtaskName').val('');
 	});
 
@@ -121,14 +126,14 @@
 		$this.parent().toggleClass('task-done');
 		var id_subtask = $this.parent()[0].id;
 	    
-	    var subtask = getSubtask(id_task,id_subtask);
-	    
-	    if(subtask.done){
-	    	subtask.done = false;
-	    }else{
-	    	subtask.done = true;
-	    }	    
-	    numberSubtaskRealizeCal(id_task);
+	    var subtask = getSubtask(id_task,id_subtask).then(function(subtask){
+	    	 if(subtask.done){
+	    	   subtask.done = false;
+	          }else{
+	    	   subtask.done = true;
+	        }	
+	    });    
+	    numberSubtaskRealizedCal(id_task);
 		percentage_cal(id_task);
 		displayNumberSubtaskComplet(id_task);
 	});
