@@ -8,8 +8,8 @@ function taskFactory(id, nameTask, username, createAt){
 	id:id,
 	userName:username,
 	name:nameTask,
-	numberSubtask:0,
-	numberSubtaskRealize:0,
+	numberOfSubtask:0,
+	numberOfSubtaskRealized:0,
 	percentComplete:0,
 	complete:false,
 	edit:false,
@@ -87,7 +87,7 @@ var addSubtask = (id_task, nameSubtask)=>{
 		return subtaskRef.child(id_subtask).set(subtask).then(function(){
 			getAllSubtasks(id_task).then(function(data){
 				var number = data.length;
-				taskRef.child(id_task).update({numberSubtask:number}).then(function(){});
+				taskRef.child(id_task).update({numberOfSubtask:number}).then(function(){});
 			})
 			return subtask;
 		});
@@ -97,9 +97,9 @@ var addSubtask = (id_task, nameSubtask)=>{
 
 function getSubtask(id_task, id_subtask){
 	
-	return subtaskRef.child(id_subtask).once('value').then(function(data){
+	return subtaskRef.child(id_subtask).once('value').then(function(response){
 		var subtask = '';
-		if(data.val().id_task == id_task){
+		if(response.val().id_task == id_task){
 			subtask = response.val();
 		}
 		return subtask;

@@ -65,7 +65,7 @@
 	function percentage_cal(id_task){
 		let task = getTask(id_task);
 		if(task != null){
-			let percent = (task.numberSubtaskRealize * 100)/task.numberSubtask;
+			let percent = (task.numberOfSubtaskRealized * 100)/task.numberSubtask;
 			task.percentComplete = percent;
 			if(task.percentComplete == 100){
 				task.complete = true;
@@ -76,13 +76,21 @@
 	}
 
 	function numberSubtaskRealizedCal(id_task){
-		var task = getTask(id_task);
-		task.numberSubtaskRealize = 0;
-		$.each(task.subtask, function(index,task_result){
-			if(task_result.done == true){				
-				task.numberSubtaskRealize ++;
+		
+		getAllSubtasks(id_task).then(function(data){
+			var numberOfSubtaskRealized = 0;
+			data.forEach(function(subtask){
+			if(subtask.done == true){				
+				numberOfSubtaskRealized ++;
 			}
+			getTask(id_task).then(function(data){
+				data.numberOfSubtaskRealized = numberOfSubtaskRealized;
+				updateTask(data).then(function(){
+
+				});
+			})
 		});
+		})
 	}
 
 	// Add Subtask
@@ -103,6 +111,7 @@
 		$('#subtaskName').val('');
 	});
 
+	
 	//Delete a subtask
 	$('#subtaskList').on('click', 'a', function(e){
 		e.preventDefault();
@@ -114,8 +123,16 @@
 			$this.parent().remove();
 			
 		});
+
+		getAllSubtasks(id_task).then(function(data){
+
+			displayNumberSubtaskComplet(data);
+			getTask(id_task).then(function(response){
+				response.numberOfSubtask = data.length;
+				updateTask(response).then(function(){});
+			});
+		});
 		e.stopPropagation();
-		//displayNumberSubtaskComplet(id_task);
 		//percentage_cal(id_task);
 		
 	});
@@ -126,16 +143,22 @@
 		$this.parent().toggleClass('task-done');
 		var id_subtask = $this.parent()[0].id;
 	    
-	    var subtask = getSubtask(id_task,id_subtask).then(function(subtask){
+	        getSubtask(id_task,id_subtask).then(function(subtask){
 	    	 if(subtask.done){
 	    	   subtask.done = false;
 	          }else{
 	    	   subtask.done = true;
 	        }	
+	        updateSubtask(subtask).then(function(){
+	        	numberSubtaskRealizedCal(subtask.id_task);
+	        });
+
+	        getAllSubtasks(id_task).then(function(data){
+	        	displayNumberSubtaskComplet(data);
+	        })
 	    });    
-	    numberSubtaskRealizedCal(id_task);
-		percentage_cal(id_task);
-		displayNumberSubtaskComplet(id_task);
+		//percentage_cal(id_task);
+		//displayNumberSubtaskComplet(id_task);
 	});
 	
 //})(jQuery)

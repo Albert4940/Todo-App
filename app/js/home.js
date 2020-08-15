@@ -18,7 +18,7 @@ update += '</svg>';
 		liElt += '<a href="#" style="color:black;" class="update" >'+update+'</a><br/>';
 		liElt += '<span>';
 		//liElt += '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button>';
-		liElt += task.numberSubtask +' Task(s)';
+		liElt += task.numberOfSubtask +' Task(s)';
 		liElt += '&nbsp&nbsp&nbsp' + task.percentComplete +'% Complete';
 		liElt += '</span>';
 		liElt += '</li>';
