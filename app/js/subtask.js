@@ -62,16 +62,17 @@
 	}
 
 
-	function percentage_cal(id_task){
-		let task = getTask(id_task);
+	function percentage_cal(task){
+		
 		if(task != null){
-			let percent = (task.numberOfSubtaskRealized * 100)/task.numberSubtask;
+			let percent = Math.round((task.numberOfSubtaskRealized * 100)/task.numberOfSubtask);
 			task.percentComplete = percent;
 			if(task.percentComplete == 100){
 				task.complete = true;
 			}else{
 				task.complete = false;
 			}
+			updateTask(task).then(function(){});
 		}
 	}
 
@@ -86,7 +87,7 @@
 			getTask(id_task).then(function(data){
 				data.numberOfSubtaskRealized = numberOfSubtaskRealized;
 				updateTask(data).then(function(){
-
+					percentage_cal(data);
 				});
 			})
 		});
@@ -108,6 +109,9 @@
 			displayNumberSubtaskComplet(data);
 		});
 		
+		getTask(id_task).then(function(data){
+			percentage_cal(data);
+		});
 		$('#subtaskName').val('');
 	});
 
@@ -119,22 +123,41 @@
 		
 		var id_subtask = $this.parent()[0].id;
 		var id_task = $('h1').attr('id');
-		removeSubtask(id_task, id_subtask).then(function(){
-			$this.parent().remove();
-			
+
+		getSubtask(id_task,id_subtask).then(function(data){
+			removeSubtask(id_task,id_subtask).then(function(){
+				getTask(id_task).then(function(response){
+					if(response.numberOfSubtask >= 0){
+						response.numberOfSubtask = response.numberOfSubtask - 1;
+					}
+					if (data.done && response.numberOfSubtaskRealized >= 0) {
+						response.numberOfSubtaskRealized = response.numberOfSubtaskRealized - 1;
+					}
+					updateTask(response).then(function(){
+						percentage_cal(response);
+					});
+				});
+				$this.parent().remove();
+			});
 		});
 
-		getAllSubtasks(id_task).then(function(data){
-
-			displayNumberSubtaskComplet(data);
+		/*removeSubtask(id_task, id_subtask).then(function(){
+			getSubtask(id_task,id_subtask).then(function(data){
 			getTask(id_task).then(function(response){
+				if()
 				response.numberOfSubtask = data.length;
 				updateTask(response).then(function(){});
 			});
 		});
-		e.stopPropagation();
-		//percentage_cal(id_task);
-		
+			$this.parent().remove();			
+		});*/
+
+
+
+		getAllSubtasks(id_task).then(function(data){
+			displayNumberSubtaskComplet(data);
+		});
+		e.stopPropagation();		
 	});
 
 	$('#subtaskList').on('change', 'input', function(){
@@ -157,7 +180,6 @@
 	        	displayNumberSubtaskComplet(data);
 	        })
 	    });    
-		//percentage_cal(id_task);
 		//displayNumberSubtaskComplet(id_task);
 	});
 	
