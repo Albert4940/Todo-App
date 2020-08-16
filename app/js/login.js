@@ -1,8 +1,6 @@
 (function($){
 	var user = '';
 	// Some functions in dorder to control registrer form
-	
-	console.log(localStorage.getItem('username'));
 	function login(){
 		let username = $('#signin-form input:eq(0)');
 		let pass = $('#signin-form input:eq(1)');
@@ -20,11 +18,11 @@
 			console.log(count);
 			if(count == 5 ){
 				count = 0;
-					if(sessionStorage.getItem("username") != null){
+					if(localStorage.getItem("username") != null){
 						
-						if(sessionStorage.getItem("pass") == pass.val()){
+						if(localStorage.getItem("pass") == pass.val()){
 							
-							sessionStorage.setItem("username",username.val())
+							localStorage.setItem("username",username.val())
 							location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
 							//location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
 						}else{
@@ -34,7 +32,7 @@
 					}
 			 clearInterval(myVar);
 	       }
-			console.log(sessionStorage.getItem("username"));
+			console.log(localStorage.getItem("username"));
 			 
 			/*if(localStorage.getItem("username")!= null){
 				$error.hide();
@@ -194,7 +192,7 @@
 					$error.hide();
 					user = addUser(fullName,username,pass, mail);
 
-					sessionStorage.setItem('username',user.userName);
+					localStorage.setItem('username',user.userName);
 					}else{
 						$error.text("User Name already exist !");
 						$error.show();

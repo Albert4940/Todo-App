@@ -19,14 +19,6 @@ var addUser = (fullName, userName , pass, mail)=>{
 	
 	//create a user object
 	var user = userFactory(fullName,userName, pass, mail, new Date());
-	
-	//Get a reference to the database service
-	//var database = firebase.database();
-	//var newUserKey = firebase.database().ref().child('users').push().key;
-	// database.child("text").set("newUserKey");
-	//var userId = firebase.database().ref().child('users').push().key;
-		//var userRef = database.ref('users/'+user.userName);
-
  		userRef.child(user.userName).set(user).then(function(){
        	//location.href = "http://localhost/jquery/Todo-App/app/html/app.html";
        	location.href = "https://albert4940.github.io/Todo-App/app/html/app.html";
@@ -45,8 +37,8 @@ var getUser = (userName, pass)=>{
        	  let user ="";
        	  var myVar;
        	  user = data.val();
-       	  sessionStorage.setItem("username",user.userName);
-		  sessionStorage.setItem("pass",user.pass);
+       	  localStorage.setItem("username",user.userName);
+		  localStorage.setItem("pass",user.pass);
        });
 };
 
