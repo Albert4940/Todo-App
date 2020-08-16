@@ -1,5 +1,5 @@
 (function($){
-	var username = sessionStorage.getItem('username');
+	var username = localStorage.getItem('username');
 	$('#dropdownMenu2').text(username);
 
 	getAllTasks(username).then(function(list_task){
