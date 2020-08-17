@@ -32,7 +32,7 @@
      #app form{
         display: flex;     
         width: 50%;   
-        margin: 10px;
+        margin: 5px;
         margin-left: 5%;
       }
 
@@ -42,7 +42,7 @@
 
       #taskList, #subtaskList{
         list-style: none;
-        height: 335px;
+        height: 330px;
         overflow: auto;
         padding-right: 15px;
       }

@@ -39,12 +39,12 @@
 <!-- Button trigger modal -->
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- change-task-modal -->
+<div class="modal fade" id="change-task-modal" tabindex="-1" aria-labelledby="change-task-modal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel" style="text-align: center;">Change Task Name</h5>
+        <h5 class="modal-title" id="change-task-modal" style="text-align: center;">Change Task Name</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -54,13 +54,36 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="change_button">Save changes</button>
+        <button type="button" class="btn btn-primary" id="change_task_button">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
-<!--  -->
+<!-- delete-task-modal -->
+<div class="modal fade" id="delete-task-modal" tabindex="-1" aria-labelledby="delete-task-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="change-task-modal" style="text-align: center;">Delete Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="alert alert-danger" role="alert">
+        All data of this task, including subtasks, will be permanently deleted
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="delete_task_button">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- App -->
     <br/>
     <div id="app" class="container-fluid">
       <div id="header">

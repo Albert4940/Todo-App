@@ -32,7 +32,7 @@ update += '</svg>';
 					numberTaskComplete ++;
 				}
 			});		
-		$('p').text(list_task.length + ' Task '+ numberTaskComplete + ' Complete');
+		$('p').text(list_task.length + ' Task(s) '+ numberTaskComplete + ' Complete');
 	}
 	//For display list of task and hide a subtask form
 	function homeHtmlContent(list_task){
@@ -63,9 +63,10 @@ update += '</svg>';
 		e.preventDefault();
 		let name = $('#taskName').val();
 		addTask(name, localStorage.getItem('username')).then(function(task){
-			console.log(task);
 			liTaskFactory(task);
-			displayNumberTaskComplet(list_task);
+			getAllTasks(localStorage.getItem('username')).then(function(data){
+					displayNumberTaskComplet(data);
+				});
 		});
 
 		$('#taskName').val('');
@@ -80,12 +81,12 @@ update += '</svg>';
 		task_name = $this.attr('class');
 		id_task=li_id;
 		$('#change_input').val($('#'+li_id+'1').text());
-		$('#exampleModal').modal('show');
+		$('#change-task-modal').modal('show');
 		e.stopPropagation();
 	});
 
 	//get new data and update 
-	$('#change_button').on('click', function(e){
+	$('#change_task_button').on('click', function(e){
 		e.preventDefault();
 		let newName = $('#change_input').val();
 		
@@ -96,17 +97,18 @@ update += '</svg>';
 			updateTask(newTask).then(function(){
 			$('#'+id_task+'1').text(newName);
 			$('#'+id_task).attr('class',newName);
-			$('#exampleModal').modal('hide');
+			$('#change-task-modal').modal('hide');
 		  });
 		});
-	})
+	});
 
 	//Delete a task
+	//Show delete modal
 	$('#taskList').on('click', '.delete', function(e){
 		e.preventDefault();
-		console.log('0');
 		var $this = $(this);		
 		var li_id = $this.parent()[0].id;
+		id_task = li_id;
 		//getAllSubtasks(li_id).then(function(response){
 			/*removeTask(li_id).then(function(){
 				$this.parent().remove();
@@ -115,8 +117,21 @@ update += '</svg>';
 			
 			
 		//});*/
-		$('#exampleModal').modal('show');
+		$('#delete-task-modal').modal('show');
 		e.stopPropagation();
+	});
+
+	//delete task
+	$('#delete_task_button').on('click', function(e){
+		e.preventDefault();		
+		removeTask(id_task).then(function(){
+				$('#'+id_task).remove();
+				getAllTasks(localStorage.getItem('username')).then(function(data){
+					displayNumberTaskComplet(data);
+				});
+				$('#delete-task-modal').modal('hide');
+			});
+			
 	});
 
 	// To display a list of subtask from task and show form subtask
