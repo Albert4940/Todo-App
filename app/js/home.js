@@ -62,7 +62,7 @@ update += '</svg>';
 	$('#formTask').on('submit', function(e){
 		e.preventDefault();
 		let name = $('#taskName').val();
-		addTask(name, sessionStorage.getItem('username')).then(function(task){
+		addTask(name, localStorage.getItem('username')).then(function(task){
 			console.log(task);
 			liTaskFactory(task);
 			displayNumberTaskComplet(list_task);
