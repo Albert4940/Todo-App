@@ -1,10 +1,18 @@
 //(function($){
-	
+	var id_task ;
+	var id_subtask;
+	var lis = [];
+	var i;
 	//function for create a li element and add it to ul element list of task
-	function liSubtaskFactory(subtask){		
+	function liSubtaskFactory(subtask, index){		
+		
 		let del = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">';
 		del += '<path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>';
 		del += '</svg>';
+		let update = '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">';
+  		update += '<path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>';
+  		update += '<path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>';
+		update += '</svg>';
         var liElt, check;
         
 		if(subtask.done){
@@ -17,8 +25,13 @@
 		
 		//liElt += '<span class="name">';
 		liElt += check;
+		liElt += '<span id="'+index+'">';
 		liElt += subtask.name;
-		liElt += '<a href="#">'+del+'</a><br/>';
+		liElt += '</span>';
+		//liElt += '<span class="action">';
+		liElt += '<a href="#" style="color:red;" class="delete_subtask" >'+del+'</a>';
+		liElt += '<a href="#" style="color:black;" class="update_subtask" >'+update+'</a><br/>';
+		//liElt += '</span>';
 		liElt += '</li>';
 
 		$('ul').append(liElt);
@@ -56,7 +69,7 @@
 
 		if(listSubtask.length > 0){
 			$.each(listSubtask, function(index,subtask){
-				liSubtaskFactory(subtask);
+				liSubtaskFactory(subtask, index);
 			});
 		}
 	}
@@ -97,11 +110,12 @@
 	// Add Subtask
 	$('#formSubtask').on('submit', function(e){
 		e.preventDefault();
-		let id_task = $('h1').attr('id');
+		 id_task = $('h1').attr('id');
 		let nameSubtask = $('#subtaskName').val();
 
 		addSubtask(id_task,nameSubtask).then(function(data){
-			liSubtaskFactory(data);
+			var span_id = Number($('#subtaskList span:last').attr('id')) + 1;
+			liSubtaskFactory(data, span_id);
 		});
 
 		getAllSubtasks(id_task).then(function(data){
@@ -115,15 +129,57 @@
 		$('#subtaskName').val('');
 	});
 
-	
-	//Delete a subtask
-	$('#subtaskList').on('click', 'a', function(e){
+	//Show update modal and subtaskname
+	$('#subtaskList').on('click', '.update_subtask', function(e){
 		e.preventDefault();
 		var $this = $(this);
-		
-		var id_subtask = $this.parent()[0].id;
-		var id_task = $('h1').attr('id');
 
+		//Get task Id
+		id_task = $('h1').attr('id');
+	    id_subtask = $this.parents()[0].id;
+
+	    //Get span id, span's subtask name
+	    i = $('#'+id_subtask+' span')[0].id;
+	    $('#subtaskList>#'+id_subtask+'>'+i).text('ll');
+	    var text = $('#'+id_subtask+' span')[0].innerHTML;
+	    
+	    console.log('i=>'+i+' text=>'+$('#'+id_subtask+' span').text());
+	   //var i = $('#'+id_subtask).children('span').id;
+	   		$('#change_subtask_input').val(text);
+	   		//console.log('i=>'+i);
+	    	$('#change-subtask-modal').modal('show');
+	});
+	
+	//Update task name
+	$('#change_subtask_button').on('click', function(e){
+		e.preventDefault();
+		var newSubtaskName = $('#change_subtask_input').val();
+		id_task = $('h1').attr('id');
+		//$('#change-subtask-modal').modal('hide');
+		getSubtask(id_task, id_subtask).then(function(data){
+			data.name = newSubtaskName;
+			updateSubtask(data).then(function(){
+				$('#'+id_subtask+' span').text(newSubtaskName);
+				$('#change-subtask-modal').modal('hide');
+			});
+		});
+	});
+
+
+	//Show Delete Modal a subtask
+	var $this;
+	$('#subtaskList').on('click', '.delete_subtask', function(e){
+		e.preventDefault();
+		 $this = $(this);
+		id_subtask = $this.parents()[0].id;
+			$('#delete-subtask-modal').modal('show');	
+	});
+
+	//Delete a task
+	$('#delete_subtask_button').on('click', function(e){
+		 id_task = $('h1').attr('id');
+		 
+		 console.log('id1=>'+id_task+' id2=>'+id_subtask)
 		getSubtask(id_task,id_subtask).then(function(data){
 			removeSubtask(id_task,id_subtask).then(function(){
 				getTask(id_task).then(function(response){
@@ -137,34 +193,23 @@
 						percentage_cal(response);
 					});
 				});
-				$this.parent().remove();
+				$this.parents()[0].remove();
+				$('#delete-subtask-modal').modal('hide');
 			});
 		});
-
-		/*removeSubtask(id_task, id_subtask).then(function(){
-			getSubtask(id_task,id_subtask).then(function(data){
-			getTask(id_task).then(function(response){
-				if()
-				response.numberOfSubtask = data.length;
-				updateTask(response).then(function(){});
-			});
-		});
-			$this.parent().remove();			
-		});*/
-
-
 
 		getAllSubtasks(id_task).then(function(data){
 			displayNumberSubtaskComplet(data);
 		});
-		e.stopPropagation();		
+		e.stopPropagation();
 	});
 
+	//Check and uncheck a subtask
 	$('#subtaskList').on('change', 'input', function(){
 		var $this = $(this);
-		var id_task = $('h1').attr('id');
+		 id_task = $('h1').attr('id');
 		$this.parent().toggleClass('task-done');
-		var id_subtask = $this.parent()[0].id;
+	   id_subtask = $this.parent()[0].id;
 	    
 	        getSubtask(id_task,id_subtask).then(function(subtask){
 	    	 if(subtask.done){

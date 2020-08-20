@@ -92,7 +92,7 @@ update += '</svg>';
 		
 		getTask(id_task).then(function(response){
 			var newTask = response;
-			newTask.name = newName;
+			newTask.name= newName;
 			newTask.updateAt = new Date();
 			updateTask(newTask).then(function(){
 			$('#'+id_task+'1').text(newName);
